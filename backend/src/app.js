@@ -42,8 +42,14 @@ app.post('/movies', async (req, res) => {
     res.status(201).json({});
 });
 
-app.put('/movies/:title', (req, res) => {
-    // para modificar los datos de una peli
+app.put('/movies/:movieId', async (req, res) => {
+    /* para modificar los datos de una peli*/
+    await db('movies').update({
+        title: req.body.title,
+        description: req.body.description,
+        year: req.body.year
+    }) .where ({id: req.params.movieId});
+    res.status(200).json({});
 });
 
 app.delete('/movies/:title', (req, res) => {
